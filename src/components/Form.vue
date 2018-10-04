@@ -44,7 +44,9 @@
                     @rating-selected="isSelected = !isSelected"></star-rating>
                 <label for="comment">Что именно вас устраивает или не устраивает в работе нашей компании? Напишите свой комментарий.</label>
                 <textarea name="comment" id="comment" v-model="comment"></textarea>
-                <button @click.prevent="send">отправить отзыв</button>
+                <button
+                    :class="[isSelected ? 'active' : 'inactive']"
+                    @click.prevent="send">отправить отзыв</button>
             </form>
 
         </section>
@@ -220,6 +222,14 @@ export default {
 
                 &:hover {
                     background-color: #22b1fc;
+                }
+
+                &.inactive {
+                    cursor: not-allowed;
+                    background-color: #22b1fcc;
+                }
+                &.inactive:hover {
+                    background-color: #22b1fcc;
                 }
             }
         }
