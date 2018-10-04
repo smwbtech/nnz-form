@@ -41,7 +41,8 @@
                     :inactive-color="'#e8f7ff'"
                     :active-color="'#22b1fc'"
                     :padding="10"
-                    @rating-selected="isSelected = !isSelected"></star-rating>
+                    :show-rating="false"
+                    @rating-selected="!isSelected ? isSelected = true : false"></star-rating>
                 <label for="comment">Что именно вас устраивает или не устраивает в работе нашей компании? Напишите свой комментарий.</label>
                 <textarea name="comment" id="comment" v-model="comment"></textarea>
                 <button
@@ -125,7 +126,6 @@ export default {
             flex-direction: column;
             justify-content: space-between;
             width: 55%;
-            height: 100%;
             padding: var(--side-padding);
             background-color: #e8f7ff;
             border-top-left-radius: 5px;
@@ -163,10 +163,13 @@ export default {
             justify-content: space-between;
             width: 45%;
             min-height: 100%;
-            height: 100%;
             padding: var(--side-padding);
             border-top-right-radius: 5px;
             border-bottom-right-radius: 5px;
+
+            & form {
+                align-self: end;
+            }
 
             & .questions {
                 position: relative;
@@ -223,14 +226,14 @@ export default {
                 &:hover {
                     background-color: #22b1fc;
                 }
+            }
 
-                &.inactive {
-                    cursor: not-allowed;
-                    background-color: #22b1fcc;
-                }
-                &.inactive:hover {
-                    background-color: #22b1fcc;
-                }
+            & button.inactive {
+                cursor: not-allowed;
+                background-color: #ccc;
+            }
+            & button.inactive:hover {
+                background-color: #ccc;
             }
         }
     }

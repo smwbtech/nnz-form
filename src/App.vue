@@ -26,6 +26,15 @@ export default {
 
     beforeMount() {
         this.loading = true;
+        let params = new URLSearchParams(window.location.search);
+        let email = params.get('em');
+        if(email) {
+            this.$http.get(`/api/check_user?email=${email}`)
+                .then( res => {
+                    console.log(res);
+                })
+                .catch( err => console.log(err));
+        }
         setTimeout( () => {
             this.loading = false;
         }, 2000);
