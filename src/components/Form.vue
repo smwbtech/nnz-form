@@ -76,7 +76,6 @@ export default {
 
     methods: {
         send() {
-            console.log(this.isSelected);
             let dataObj = {
                 email: this.email,
                 rating: this.rating,
