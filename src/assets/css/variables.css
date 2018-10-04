@@ -1,0 +1,15 @@
+@import "http://fonts.fontstorage.com/import/clearsans.css";
+
+:root {
+    /* Моя сетка */
+    font-family: 'Clear Sans';
+    color: #7b7b7b;
+   --side-padding: 20px;
+   --column: calc((100vw - 40px) / 24);
+   --row: calc(100vh / 12);
+   --gutter: 16px;
+
+   --mob-column: calc((100vw - 20px) / 12 );
+   --mob-row: calc(100vh / 10);
+   --mob-gutter: 8px;
+}
