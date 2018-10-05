@@ -5,12 +5,12 @@ const config = require('./../config/nnz_form_config.js');
 const db = {
     async connect() {
         try {
-            const client = await MongoClient.connect(url)
+            const client = await MongoClient.connect(config.dbUrl, { useNewUrlParser: true });
             const db = client.db('nnzForm');
-            console.log('Успешно соеденились')
             return {client, db};
         }
         catch(e) {
+            console.error(e);
             return Promise.reject(new Error('Ошибка соединения с базой данных'));
         }
     },
