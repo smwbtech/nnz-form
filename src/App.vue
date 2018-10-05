@@ -1,8 +1,12 @@
 <template>
   <main id="app">
       <transition name="fade" mode="out-in">
-          <img v-if="loading" class="loading" src="./assets/img/nnz_letter_logo.svg" alt="">
-          <app-form v-else></app-form>
+            <img v-if="loading" class="loading" src="./assets/img/nnz_letter_logo.svg" alt="">
+            <app-form
+                v-else
+                :statue="status"
+                :user="user"
+            ></app-form>
       </transition>
 
   </main>
@@ -20,24 +24,33 @@ export default {
 
     data() {
         return {
-            loading: false
+            loading: false,
+            status: false,
+            user: null
         }
     },
 
     beforeMount() {
+        //Проверяем пользователя
         this.loading = true;
         let params = new URLSearchParams(window.location.search);
         let email = params.get('em');
         if(email) {
             this.$http.get(`/api/user/check/${email}`)
                 .then( res => {
+                    this.loading = false;
                     console.log(res);
+                    let { data } = res;
+                    if(data.status) {
+                        this.status = data.status;
+                        this.user = data.user;
+                    }
                 })
-                .catch( err => console.log(err));
+                .catch( err => {
+                    this.loading = false;
+                    console.log(err);
+                });
         }
-        setTimeout( () => {
-            this.loading = false;
-        }, 2000);
     }
 }
 </script>
