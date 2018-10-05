@@ -1,7 +1,7 @@
 <template>
   <main id="app">
       <transition name="fade" mode="out-in">
-            <img v-if="loading" class="loading" src="./assets/img/nnz_letter_logo.svg" alt="">
+            <img v-if="loading" :class="[loading ? 'loading-animated': '', 'loading']" src="./assets/img/nnz_letter_logo.svg" alt="">
             <app-form
                 v-else
                 :status="status"
@@ -89,7 +89,10 @@ export default {
 
     .loading {
         opacity: .1;
-        animation: load 2s ease-in infinite;
+    }
+
+    .loading-animated {
+        animation: load 1s ease-in infinite;
     }
 
     /* Анимация появления формы */
@@ -99,7 +102,7 @@ export default {
     }
 
     .fade-leave-active {
-        transition: opacity .2s ease-out;
+        transition: opacity .2s ease-out, transform .3s ease-in;
     }
 
     .fade-enter {
@@ -110,26 +113,31 @@ export default {
 
     .fade-leave-to {
         opacity: 0;
+        transform: scale(0);
         transform-origin: center center;
     }
 
     /* Анимация логотипа */
 
     @-webkit-keyframes load {
-        from { transform: rotateY(0turn);}
-        to { transform: rotateY(1turn) }
+        0% { opacity: .1;}
+        50% { opacity: .5;}
+        100% { opacity: .1;}
     }
     @-o-keyframes load {
-        from { transform: rotateY(0turn);}
-        to { transform: rotateY(1turn) }
+        0% { opacity: .1;}
+        50% { opacity: .5;}
+        100% { opacity: .1;}
     }
     @-moz-keyframes load {
-        from { transform: rotateY(0turn);}
-        to { transform: rotateY(1turn) }
+        0% { opacity: .1;}
+        50% { opacity: .5;}
+        100% { opacity: .1;}
     }
     @keyframes load {
-        from { transform: rotateY(0turn);}
-        to { transform: rotateY(1turn) }
+        0% { opacity: .1;}
+        50% { opacity: .5;}
+        100% { opacity: .1;}
     }
 
     /* Мобильная верстка */
