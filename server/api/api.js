@@ -20,7 +20,30 @@ const api = {
             console.error(e);
             res.json({status: false});
         }
+    },
 
+    //Сохраняем ответ пользователя в БД
+    async saveAnswer(req, res) {
+        const {user, answer} = req.body;
+        const id = db.objectId(user._id);
+        try {
+            const dbConnection = await db.connect();
+            let update = await dbConnection.db.collection('answers').findOneAndUpdate({_id: id}, {$set: {
+                    isAnswered: true,
+                    answer
+                }
+            });
+            if(update.lastErrorObject.updatedExisting) {
+                res.json({status: true});
+            }
+            else {
+                throw new Error('Ошибка обновления. Попробуйте позже');
+            }
+        }
+        catch(e) {
+            console.log(e);
+            res.json({status: false});
+        }
     }
 }
 

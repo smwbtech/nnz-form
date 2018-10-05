@@ -4,8 +4,9 @@
             <img v-if="loading" class="loading" src="./assets/img/nnz_letter_logo.svg" alt="">
             <app-form
                 v-else
-                :statue="status"
+                :status="status"
                 :user="user"
+                @answered="answeredHanler"
             ></app-form>
       </transition>
 
@@ -30,6 +31,12 @@ export default {
         }
     },
 
+    methods: {
+        answeredHanler() {
+            this.user ? this.user.isAnswered = true : this.user = {isAnswered: true};
+        }
+    },
+
     beforeMount() {
         //Проверяем пользователя
         this.loading = true;
@@ -50,6 +57,11 @@ export default {
                     this.loading = false;
                     console.log(err);
                 });
+        }
+        else {
+            setTimeout( () => {
+                this.loading = false;
+            }, 1500)
         }
     }
 }

@@ -73,7 +73,7 @@ export default {
          */
         status: {
             type: Boolean,
-            default: false
+            require: true
         },
         /**
          * Объект пользователя
@@ -101,12 +101,28 @@ export default {
 
     methods: {
         send() {
-            let dataObj = {
-                email: this.email,
-                rating: this.rating,
-                comment: this.comment
-            };
-            this.isAnswered = !this.isAnswered;
+            if(this.status && this.user && !this.user.isAnswered) {
+                let dataObj = {
+                    user: this.user,
+                    answer: {
+                        rating: this.rating,
+                        comment: this.comment
+                    }
+                };
+                this.$http.post('/api/user/save_answer', dataObj)
+                    .then( res => {
+                        let { data } = res;
+                        if(data.status) {
+                            this.$emit('answered');
+                        }
+                    })
+                    .catch(err => {
+                        console.log(err);
+                    });
+            }
+            else {
+                this.$emit('answered');
+            }
         }
     }
 }

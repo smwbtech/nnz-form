@@ -11,15 +11,11 @@ const api = require('./../api/index.js');
 router.use(bodyParser.json());
 router.use(bodyParser.urlencoded({ extended: false }));
 
-// router.get('/', (req, res, err) => {
-//     if(err) console.log(err);
-//     res.sendFile( path.resolve('./../dist/index.html'));
-// });
+/* API */
 
+//Проверка пользователя
 router.get('/api/user/check/:email', api.checkUser);
-
-router.post('/save', async (req, res, err) => {
-
-});
+//Сохранение ответа пользователя
+router.post('/api/user/save_answer', api.saveAnswer);
 
 module.exports = router;
