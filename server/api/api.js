@@ -10,7 +10,7 @@ const api = {
             let user = await dbConnection.db.collection('answers').find({email}).toArray();
             await dbConnection.client.close();
             if(user.length > 0) {
-                res.json({status: true, user})
+                res.json({status: true, user: user[0]});
             }
             else {
                 throw new Error('Пользователь не найден в базе данных');
