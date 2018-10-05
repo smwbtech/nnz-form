@@ -29,7 +29,7 @@ export default {
         let params = new URLSearchParams(window.location.search);
         let email = params.get('em');
         if(email) {
-            this.$http.get(`/api/check_user?email=${email}`)
+            this.$http.get(`/api/user/check/${email}`)
                 .then( res => {
                     console.log(res);
                 })
