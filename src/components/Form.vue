@@ -407,6 +407,14 @@ export default {
           animation: 0.3s linear 0.9s both fadeIn;
 }
 
+/* Для старыъ мониторов */
+
+@media screen and (812px < width <= 1440px) {
+    .form-block {
+        width: calc(var(--column) * 18);
+    }
+}
+
 /* Мобильная верстка */
 
 @media screen and (width <= 812px) {
@@ -431,8 +439,19 @@ export default {
             }
         }
 
+        & .success {
+            padding: 10px;
+            flex-direction: column;
+
+            & svg {
+                display: block;
+            }
+        }
+
+
         & .form-block-right {
             width: 100%;
+            padding: 10px 5px 20px 10px;
 
             & label {
                 text-align: center;
