@@ -1,5 +1,9 @@
 const db = require('./../db/index.js');
 
+//Классы
+const Response = require('./../models/Response.js');
+const ApiError = require('./../models/ApiError.js');
+
 const api = {
 
     //Проверяем, есть ли пользователь в БД, если да, то возвращаем его объект клиенту
@@ -13,12 +17,19 @@ const api = {
                 res.json({status: true, user: user[0]});
             }
             else {
-                throw new Error('Пользователь не найден в базе данных');
+                throw new ApiError({
+                    name: 'Check User Fail',
+                    message: `Пользователь с email: ${email} не найдет в БД`,
+                    code: 4000
+                });
             }
         }
         catch(e) {
-            console.error(e);
-            res.json({status: false});
+            logger.error(`${e.name} - ${e.message} - ${e.stack || e} - ${req.originalUrl} - ${req.method} - ${req.ip}`);
+            res.json(new Response({
+               status: false,
+               error: e
+           }));
         }
     },
 
@@ -41,8 +52,11 @@ const api = {
             }
         }
         catch(e) {
-            console.log(e);
-            res.json({status: false});
+            logger.error(`${e.name} - ${e.message} - ${req.originalUrl} - ${req.method} - ${req.ip}`);
+            res.json(new Response({
+               status: false,
+               error: e
+           }));
         }
     }
 }
