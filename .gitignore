@@ -24,3 +24,4 @@ yarn-error.log*
 
 /server/users/
 /server/config/
+/logger/files/
