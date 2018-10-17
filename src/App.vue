@@ -1,13 +1,7 @@
 <template>
   <main id="app">
       <transition name="fade" mode="out-in">
-            <img v-if="loading" :class="[loading ? 'loading-animated': '', 'loading']" src="./assets/img/nnz_letter_logo.svg" alt="">
-            <app-form
-                v-else
-                :status="status"
-                :user="user"
-                @answered="answeredHanler"
-            ></app-form>
+            <router-view></router-view>
       </transition>
 
   </main>
@@ -25,44 +19,12 @@ export default {
 
     data() {
         return {
-            loading: false,
-            status: false,
-            user: null
+
         }
     },
 
     methods: {
-        answeredHanler() {
-            this.user ? this.user.isAnswered = true : this.user = {isAnswered: true};
-        }
-    },
 
-    beforeMount() {
-        //Проверяем пользователя
-        this.loading = true;
-        let params = new URLSearchParams(window.location.search);
-        let email = params.get('em');
-        if(email) {
-            this.$http.get(`/api/user/check/${email}`)
-                .then( res => {
-                    this.loading = false;
-                    console.log(res);
-                    let { data } = res;
-                    if(data.status) {
-                        this.status = data.status;
-                        this.user = data.user;
-                    }
-                })
-                .catch( err => {
-                    this.loading = false;
-                    console.log(err);
-                });
-        }
-        else {
-            setTimeout( () => {
-                this.loading = false;
-            }, 1500)
-        }
     }
 }
 </script>
@@ -87,14 +49,6 @@ export default {
 
     }
 
-    .loading {
-        opacity: .1;
-    }
-
-    .loading-animated {
-        animation: load 1s ease-in infinite;
-    }
-
     /* Анимация появления формы */
 
     .fade-enter-active {
@@ -117,28 +71,6 @@ export default {
         transform-origin: center center;
     }
 
-    /* Анимация логотипа */
-
-    @-webkit-keyframes load {
-        0% { opacity: .1;}
-        50% { opacity: .5;}
-        100% { opacity: .1;}
-    }
-    @-o-keyframes load {
-        0% { opacity: .1;}
-        50% { opacity: .5;}
-        100% { opacity: .1;}
-    }
-    @-moz-keyframes load {
-        0% { opacity: .1;}
-        50% { opacity: .5;}
-        100% { opacity: .1;}
-    }
-    @keyframes load {
-        0% { opacity: .1;}
-        50% { opacity: .5;}
-        100% { opacity: .1;}
-    }
 
     /* Мобильная верстка */
 

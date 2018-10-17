@@ -1,40 +1,42 @@
 <template lang="html">
 
-    <div class="form-block">
+    <div class="form-container">
+        <transition name="fade" mode="out-in">
+        <img v-if="loading" :class="[loading ? 'loading-animated': '', 'loading']" src="./../assets/img/nnz_letter_logo.svg" alt="">
+        <div v-else class="form-block">
+            <transition name="fade">
+                <div class="success" v-if="isAnswered">
+                    <svg id="successAnimation" :class="{animated: isAnswered}" xmlns="http://www.w3.org/2000/svg" width="70" height="70" viewBox="0 0 70 70">
+                        <path id="successAnimationResult" fill="#D8D8D8" d="M35,60 C21.1928813,60 10,48.8071187 10,35 C10,21.1928813 21.1928813,10 35,10 C48.8071187,10 60,21.1928813 60,35 C60,48.8071187 48.8071187,60 35,60 Z M23.6332378,33.2260427 L22.3667622,34.7739573 L34.1433655,44.40936 L47.776114,27.6305926 L46.223886,26.3694074 L33.8566345,41.59064 L23.6332378,33.2260427 Z"/>
+                        <circle id="successAnimationCircle" cx="35" cy="35" r="24" stroke="#979797" stroke-width="2" stroke-linecap="round" fill="transparent"/>
+                        <polyline id="successAnimationCheck" stroke="#979797" stroke-width="2" points="23 34 34 43 47 27" fill="transparent"/>
+                    </svg>
+                    <p>Ваш ответ принят! От лица компании "Ниеншанц-Автоматика" благодарим, что уделили время!</p>
+                </div>
+            </transition>
 
-        <transition name="fade">
-            <div class="success" v-if="isAnswered">
-                <svg id="successAnimation" :class="{animated: isAnswered}" xmlns="http://www.w3.org/2000/svg" width="70" height="70" viewBox="0 0 70 70">
-                      <path id="successAnimationResult" fill="#D8D8D8" d="M35,60 C21.1928813,60 10,48.8071187 10,35 C10,21.1928813 21.1928813,10 35,10 C48.8071187,10 60,21.1928813 60,35 C60,48.8071187 48.8071187,60 35,60 Z M23.6332378,33.2260427 L22.3667622,34.7739573 L34.1433655,44.40936 L47.776114,27.6305926 L46.223886,26.3694074 L33.8566345,41.59064 L23.6332378,33.2260427 Z"/>
-                      <circle id="successAnimationCircle" cx="35" cy="35" r="24" stroke="#979797" stroke-width="2" stroke-linecap="round" fill="transparent"/>
-                      <polyline id="successAnimationCheck" stroke="#979797" stroke-width="2" points="23 34 34 43 47 27" fill="transparent"/>
-                </svg>
-                <p>Ваш ответ принят! От лица компании "Ниеншанц-Автоматика" благодарим, что уделили время!</p>
-            </div>
-        </transition>
+            <!-- Левый блок -->
+            <section class="form-block-left">
+                <img src="./../assets/img/nnz_logo.svg" alt="Логотип Ниеншанц-Автоматики" class="logo">
+                <p class="text">
+                    <span>Добрый день, {{ user ? user.name : '' }}</span><br>
+                    Мы проводим опрос среди наших постоянных клиентов с целью улучшить наше взаимодействие и коммуникацию. Просим Вас ответить на два вопроса, которые дадут нам более полное представление о том, как наша компания воспринимается со стороны. Заранее благодарим за ответы, вы помогаете нам становиться лучше.
+                </p>
+                <p class="link">
+                    <a href="https://www.nnz-ipc.ru/">www.nnz-ipc.ru</a>
+                </p>
+            </section>
 
-        <!-- Левый блок -->
-        <section class="form-block-left">
-            <img src="./../assets/img/nnz_logo.svg" alt="Логотип Ниеншанц-Автоматики" class="logo">
-            <p class="text">
-                <span>Добрый день, {{ user ? user.name : '' }}</span><br>
-                Мы проводим опрос среди наших постоянных клиентов с целью улучшить наше взаимодействие и коммуникацию. Просим Вас ответить на два вопроса, которые дадут нам более полное представление о том, как наша компания воспринимается со стороны. Заранее благодарим за ответы, вы помогаете нам становиться лучше.
-            </p>
-            <p class="link">
-                <a href="https://www.nnz-ipc.ru/">www.nnz-ipc.ru</a>
-            </p>
-        </section>
+            <!-- Правый блок -->
+            <section class="form-block-right">
 
-        <!-- Правый блок -->
-        <section class="form-block-right">
+                <div class="questions" :style="{opacity: !isAnswered ? '1' : '0'}">
+                    <img src="./../assets/img/questions_logo.svg" alt="Лого вопросов">
+                </div>
 
-            <div class="questions" :style="{opacity: !isAnswered ? '1' : '0'}">
-                <img src="./../assets/img/questions_logo.svg" alt="Лого вопросов">
-            </div>
-
-            <form action="">
-                <label for="star-rating">Как вы оцениваете работу нашей компании по пятибальной шкале? </label>
-                <star-rating class="star-rating" id="star-rating"
+                <form action="">
+                    <label for="star-rating">Как вы оцениваете работу нашей компании по пятибальной шкале? </label>
+                    <star-rating class="star-rating" id="star-rating"
                     v-model="rating"
                     :increment="0.5"
                     :star-size="40"
@@ -43,15 +45,17 @@
                     :padding="10"
                     :show-rating="false"
                     @rating-selected="!isSelected ? isSelected = true : false"></star-rating>
-                <label for="comment">Что именно вас устраивает или не устраивает в работе нашей компании? Напишите свой комментарий.</label>
-                <textarea name="comment" id="comment" v-model="comment"></textarea>
-                <button
+                    <label for="comment">Что именно вас устраивает или не устраивает в работе нашей компании? Напишите свой комментарий.</label>
+                    <textarea name="comment" id="comment" v-model="comment"></textarea>
+                    <button
                     :class="[isSelected ? 'active' : 'inactive']"
                     @click.prevent="send">отправить отзыв</button>
-            </form>
+                </form>
 
-        </section>
+            </section>
 
+        </div>
+    </transition>
     </div>
 
 </template>
@@ -66,30 +70,14 @@ export default {
             StarRating
     },
 
-    props: {
-        /**
-         * Статус проверки пользователя, заполняющего анкету: true - пользователь прошел проверку, false - пользователь не прошел проверку, его ответ можно не учитвать
-         * @type {[type]}
-         */
-        status: {
-            type: Boolean,
-            require: true
-        },
-        /**
-         * Объект пользователя
-         * @type {Object}
-         */
-        user: {
-            type: Object,
-            required: true
-        }
-    },
-
     data() {
         return {
             isSelected: false,
             rating: 0,
-            comment: 'Напишите свой комментарий'
+            comment: 'Напишите свой комментарий',
+            loading: false,
+            status: false,
+            user: null
         }
     },
 
@@ -100,6 +88,7 @@ export default {
     },
 
     methods: {
+
         send() {
             if(this.status && this.user && !this.user.isAnswered) {
                 let dataObj = {
@@ -113,7 +102,7 @@ export default {
                     .then( res => {
                         let { data } = res;
                         if(data.status) {
-                            this.$emit('answered');
+                            this.user ? this.user.isAnswered = true : this.user = {isAnswered: true}
                         }
                     })
                     .catch(err => {
@@ -123,6 +112,34 @@ export default {
             else {
                 this.$emit('answered');
             }
+        }
+    },
+
+    mounted() {
+        //Проверяем пользователя
+        this.loading = true;
+        let params = new URLSearchParams(window.location.search);
+        let email = params.get('em');
+        if(email) {
+            this.$http.get(`/api/user/check/${email}`)
+                .then( res => {
+                    this.loading = false;
+                    console.log(res);
+                    let { data } = res;
+                    if(data.status) {
+                        this.status = data.status;
+                        this.user = data.user;
+                    }
+                })
+                .catch( err => {
+                    this.loading = false;
+                    console.log(err);
+                });
+        }
+        else {
+            setTimeout( () => {
+                this.loading = false;
+            }, 1500)
         }
     }
 }
@@ -406,6 +423,60 @@ export default {
   -webkit-animation: 0.3s linear 0.9s both fadeIn;
           animation: 0.3s linear 0.9s both fadeIn;
 }
+
+.loading {
+    opacity: .1;
+}
+
+.loading-animated {
+    animation: load 1s ease-in infinite;
+}
+
+/* Анимация появления формы */
+
+.fade-enter-active {
+    transition: opacity .2s ease-in, transform .3s ease-in;
+}
+
+.fade-leave-active {
+    transition: opacity .2s ease-out, transform .3s ease-in;
+}
+
+.fade-enter {
+    opacity: 0;
+    transform-origin: center center;
+    transform: scale(1.3);
+}
+
+.fade-leave-to {
+    opacity: 0;
+    transform: scale(0);
+    transform-origin: center center;
+}
+
+/* Анимация логотипа */
+
+@-webkit-keyframes load {
+    0% { opacity: .1;}
+    50% { opacity: .5;}
+    100% { opacity: .1;}
+}
+@-o-keyframes load {
+    0% { opacity: .1;}
+    50% { opacity: .5;}
+    100% { opacity: .1;}
+}
+@-moz-keyframes load {
+    0% { opacity: .1;}
+    50% { opacity: .5;}
+    100% { opacity: .1;}
+}
+@keyframes load {
+    0% { opacity: .1;}
+    50% { opacity: .5;}
+    100% { opacity: .1;}
+}
+
 
 /* Для старыъ мониторов */
 
