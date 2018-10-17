@@ -4,6 +4,7 @@
     /* Моя сетка */
     font-family: 'Clear Sans';
     color: #7b7b7b;
+    --grey: #7b7b7b;
    --side-padding: 20px;
    --column: calc((100vw - 40px) / 24);
    --row: calc(100vh / 12);
