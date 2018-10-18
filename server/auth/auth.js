@@ -1,8 +1,8 @@
 const db = require('./../db/index.js');
-const logger = require('./../logger/index.js');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const config = require('./../config/nnz_form_config.js');
+const { logger } = require('./../logger/index.js');
 
 //Классы
 const Response = require('./../models/Response.js');
@@ -76,6 +76,7 @@ const auth = {
     async login(req, res) {
         try {
             let {email, password} = req.body;
+            console.log(req.body);
             let dbConnection = await db.connect();
             let user = await dbConnection.db.collection('users').findOne({email});
             if(user) {
@@ -103,6 +104,7 @@ const auth = {
             }
         }
         catch(e) {
+            console.log(e);
             logger.error(`${e.name} - ${e.message} - ${e.stack || e} - ${req.originalUrl} - ${req.method} - ${req.ip}`);
             res.json(new Response({
                status: false,

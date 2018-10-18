@@ -19,7 +19,7 @@ app.use('/', router);
 app.use(express.static(path.resolve('../dist')));
 
 //404
-app.use( (req, res) => {
+app.use( (err, req, res) => {
     logger.error(`${err.status || 400} - ${err.message} - ${req.originalUrl} - ${req.method} - ${req.ip}`);
     res.status(404);
 });
