@@ -53,10 +53,7 @@ const api = {
         }
         catch(e) {
             logger.error(`${e.name} - ${e.message} - ${req.originalUrl} - ${req.method} - ${req.ip}`);
-            res.json(new Response({
-               status: false,
-               error: e
-           }));
+            res.json({status: false});
         }
     }
 }
