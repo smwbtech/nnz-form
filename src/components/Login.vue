@@ -26,7 +26,6 @@ export default {
             else {
                 this.$http.post('/auth/login', {email: this.email, password: this.password})
                 .then( res => {
-                    console.log(res);
                     let {status, data, error} = res.data;
                     if(status) {
                         localStorage.setItem('tkn', data);
