@@ -7,8 +7,11 @@
     /* Цвета */
     --grey: #7b7b7b;
     --dark-green: #01947a;
+    --dark-green-rgb: 1, 148, 122;
     --orange: #d93e37;
+    --orange-rgb: 217, 62, 55;
     --dark-blue: #015b94;
+    --dark-blue-rgb: 1, 91, 148;
     /* Моя сетка */
    --side-padding: 20px;
    --column: calc((100vw - 40px) / 24);

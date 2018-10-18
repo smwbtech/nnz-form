@@ -19,13 +19,21 @@ export default {
 
     methods: {
         login() {
-            if(!email || !password) {
-                console.log('Показывает сообщение с ошибкой')
+            if(!this.email || !this.password) {
+                let message = 'Поле email и password не должны быть пустыми';
+                this.$store.commit('showFlashMessage', {message, status: 'error'});
             }
             else {
-                this.$http.post('/api/auth/login', {login: this.login, password: this.password})
+                this.$http.post('/api/auth/login', {email: this.email, password: this.password})
                 .then( res => {
-
+                    let {status, data, error} = res.data;
+                    if(status) {
+                        console.log(data);
+                    }
+                    else {
+                        let message = error.message;
+                        this.$store.commit('showFlashMessage', {message, status: 'error'});
+                    }
                 })
                 .catch( e => {
                     console.log(e);

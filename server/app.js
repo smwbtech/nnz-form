@@ -8,7 +8,6 @@ const app = express();
 
 app.set('port', process.env.PORT || 3000);
 
-(async () => await auth.createDefaultUser())();
  /*** Обработка маршрутов ***/
 
 // Корневой маршрут, отдаем index.html

@@ -32,6 +32,7 @@ export default {
 
     computed: {
         flashMessage() {
+            console.log(this.$store.state);
             return this.$store.state.flashMessage.message.length > 0;
         }
     },

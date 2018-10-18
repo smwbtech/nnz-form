@@ -28,7 +28,7 @@ export default {
 <style lang="css" scoped>
 
     @import './../assets/css/variables.css';
-    
+
     div {
         position: fixed;
         z-index: 300;
@@ -51,19 +51,19 @@ export default {
             background-repeat: no-repeat;
         }
         &.success {
-            background-color: color(var(--dark-green) a(68%));
+            background-color: rgba(var(--dark-green-rgb), 0.68);
         }
         &.success:before {
             background-image: url('./../assets/img/success.svg');
         }
         &.error{
-            background-color: color(var(--orange) a(68%));
+            background-color: rgba(var(--orange-rgb), 0.68);
         }
         &.error:before{
             background-image: url('./../assets/img/warning.svg');
         }
         &.notification {
-            background-color: color(var(--dark-blue) a(68%));
+            background-color: rgba(var(--dark-blue-rgb), 0.68);
         }
         &.notification:before {
             background-image: url('./../assets/img/light-bulb.svg');
