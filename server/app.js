@@ -1,13 +1,14 @@
 const path = require('path');
 const express = require('express');
 const router = require('./router/router.js');
+const auth = require('./auth/index.js');
 const { logger } = require('./logger/index.js');
-
 
 const app = express();
 
 app.set('port', process.env.PORT || 3000);
 
+(async () => await auth.createDefaultUser())();
  /*** Обработка маршрутов ***/
 
 // Корневой маршрут, отдаем index.html
