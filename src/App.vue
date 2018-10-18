@@ -1,25 +1,38 @@
 <template>
   <main id="app">
+      <!-- Основной контент -->
       <transition name="fade" mode="out-in">
             <router-view></router-view>
       </transition>
+      <!-- Flash Message -->
+    <transition name="flash-message">
+        <app-flash-message v-if="flashMessage"></app-flash-message>
+    </transition>
 
   </main>
 </template>
 
 <script>
 import Form from './components/Form.vue'
+import FlashMessage from './components/FlashMessage.vue';
 
 export default {
     name: 'app',
 
     components: {
-        appForm: Form
+        appForm: Form,
+        appFlashMessage: FlashMessage
     },
 
     data() {
         return {
 
+        }
+    },
+
+    computed: {
+        flashMessage() {
+            return this.$store.state.flashMessage.message.length > 0;
         }
     },
 
@@ -69,6 +82,42 @@ export default {
         opacity: 0;
         transform: scale(0);
         transform-origin: center center;
+    }
+
+    /* Анимация FlashMessage */
+    .flash-message-enter-active {
+        animation: fromBottom .5s forwards;
+    }
+    .flash-message-leave-active {
+        animation: toRight .5s forwards;
+    }
+    @keyframes fromBottom {
+        0% {
+            transform: translateY(240px);
+            opacity: 0;
+        }
+        70% {
+            transform: translateY(-50px);
+            opacity: 0.8;
+        }
+        100% {
+            transform: translateY(0);
+            opacity: 1;
+        }
+    }
+    @keyframes toRight {
+        0% {
+            transform: translateX(0);
+            opacity: 1;
+        }
+        30% {
+            transform: translateX(-50px);
+            opacity: 0.8;
+        }
+        100% {
+            transform: translateX(240px);
+            opacity: 0;
+        }
     }
 
 
