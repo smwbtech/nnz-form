@@ -67,7 +67,7 @@ const auth = {
                         })
                     );
                 }
-                res(decoded);
+                res(decoded.data);
             });
         });
     },
@@ -114,9 +114,9 @@ const auth = {
     async checkAuth(req, res) {
         try {
             let token = req.params.token;
-            let id = await verifyToken(token);
+            let id = await auth.verifyToken(token);
             let dbConnection = await db.connect();
-            let user = dbConnection.db.collection('users').findOne({_id: db.objectId(id)});
+            let user = await dbConnection.db.collection('users').findOne({_id: db.objectId(id)});
             if(user) {
                 res.json(new Response({
                     status: true,

@@ -24,6 +24,8 @@ router.post('/api/user/save_answer', api.saveAnswer);
 
 // Авторизация пользователя
 router.post('/auth/login', auth.login);
+// Идентификация пользователя
+router.post('/auth/check/:token', auth.checkAuth);
 
 /// HISTORY MODE FALLBACK API //
 router.use(history());

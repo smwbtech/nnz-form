@@ -29,7 +29,7 @@ export default {
                     console.log(res);
                     let {status, data, error} = res.data;
                     if(status) {
-                        localStorage.setItem('_tkn', data);
+                        localStorage.setItem('tkn', data);
                         this.$router.push('/send_form');
                     }
                     else {
