@@ -60,7 +60,6 @@ const auth = {
         return new Promise( (res, rej) => {
             jwt.verify(token, config.secret, function(err, decoded) {
                 if(err) {
-                        console.log(err);
                         rej(new ApiError({
                             code: 0000,
                             name: err.name,
@@ -76,7 +75,6 @@ const auth = {
     async login(req, res) {
         try {
             let {email, password} = req.body;
-            console.log(req.body);
             let dbConnection = await db.connect();
             let user = await dbConnection.db.collection('users').findOne({email});
             if(user) {

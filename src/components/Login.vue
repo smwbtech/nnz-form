@@ -24,14 +24,16 @@ export default {
                 this.$store.commit('showFlashMessage', {message, status: 'error'});
             }
             else {
-                this.$http.post('/api/auth/login', {email: this.email, password: this.password})
+                this.$http.post('/auth/login', {email: this.email, password: this.password})
                 .then( res => {
+                    console.log(res);
                     let {status, data, error} = res.data;
                     if(status) {
-                        console.log(data);
+                        localStorage.setItem('_tkn', data);
+                        this.$router.push('/send_form');
                     }
                     else {
-                        let message = error.message;
+                        let message = error.text;
                         this.$store.commit('showFlashMessage', {message, status: 'error'});
                     }
                 })
