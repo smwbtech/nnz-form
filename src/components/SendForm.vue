@@ -38,7 +38,6 @@ export default {
             this.loading = true;
             this.$http.post(`/auth/check/${token}`)
                 .then( res => {
-                    console.log(res);
                     let {data, status, error} = res.data;
                     if(status) {
                         this.user = data;
