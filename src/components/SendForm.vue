@@ -4,16 +4,19 @@
             <img v-if="loading" :class="[loading ? 'loading-animated': '', 'loading']" src="./../assets/img/nnz_letter_logo.svg" alt="">
             <form v-else-if="!loading && authorized" action="">
                 <input type="text" class="name" placeholder="ФИО получателя" v-model="sendData.name">
-                <div class="gender">
+                <div class="options">
                     <p>Пол</p>
-                    <label for="gender_m">Мужской</label>
-                    <input type="radio" name="gender_f" vlaue="male" id="gender_m" v-model="sendData.gender">
-                    <label for="gender_f">Женский</label>
-                    <input type="radio" name="gender" vlaue="female" id="gender_f" v-model="sendData.gender">
+                    <input type="radio" value="male" id="gender_male" v-model="sendData.gender">
+                    <label for="gender_male">Мужской</label>
+                    <input type="radio" value="female" id="gender_female" v-model="sendData.gender">
+                    <label for="gender_female">Женский</label>
                 </div>
-                <div class="gender">
+                <div class="options">
                     <p>Отправить без личного обращения</p>
-                    <input type="checkbox" name="anonym" id="anonym" v-model="sendData.anonym">
+                    <input type="radio" value="false" id="anonym_true" v-model="sendData.anonym">
+                    <label for="anonym_true">Да</label>
+                    <input type="radio" value="true" id="anonym_false" v-model="sendData.anonym">
+                    <label for="anonym_false">Нет</label>
                 </div>
                 <input type="text" name="phone" class="phone" placeholder="Телефон получателя" v-model="sendData.phone">
                 <input type="text" name="email" class="email" placeholder="Email получателя" v-model="sendData.email">
@@ -36,7 +39,7 @@ export default {
             authorized: false,
             sendData: {
                 name: '',
-                anonym: false,
+                anonym: 'false',
                 gender: 'male',
                 email: '',
                 phone: ''
@@ -104,6 +107,33 @@ form {
         width: 80%;
         margin-bottom: 40px;
         text-align: center;
+    }
+
+    & .options {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+
+        & p {
+            width: 100%;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        & input {
+            display: none;
+        }
+
+        & label {
+            margin: 0 20px;
+            opacity: .5;
+            transition: opacity .2s ease-in;
+            cursor: pointer;
+        }
+
+        & input:checked + label {
+            opacity: 1;
+        }
     }
 
     & > input {
