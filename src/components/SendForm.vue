@@ -4,6 +4,18 @@
             <img v-if="loading" :class="[loading ? 'loading-animated': '', 'loading']" src="./../assets/img/nnz_letter_logo.svg" alt="">
             <form v-else-if="!loading && authorized" action="">
                 <input type="text" class="name" placeholder="ФИО получателя" v-model="sendData.name">
+                <div class="gender">
+                    <p>Пол</p>
+                    <label for="gender_m">Мужской</label>
+                    <input type="radio" name="gender_f" vlaue="male" id="gender_m" v-model="sendData.gender">
+                    <label for="gender_f">Женский</label>
+                    <input type="radio" name="gender" vlaue="female" id="gender_f" v-model="sendData.gender">
+                </div>
+                <div class="gender">
+                    <p>Отправить без личного обращения</p>
+                    <input type="checkbox" name="anonym" id="anonym" v-model="sendData.anonym">
+                </div>
+                <input type="text" name="phone" class="phone" placeholder="Телефон получателя" v-model="sendData.phone">
                 <input type="text" name="email" class="email" placeholder="Email получателя" v-model="sendData.email">
                 <button type="submit" @click.prevent="sendForm">Отправить</button>
             </form>
@@ -12,6 +24,9 @@
 </template>
 
 <script>
+
+import { sendFormValidation } from './../assets/js/SendFormValidation.js';
+
 export default {
 
     data() {
@@ -21,14 +36,23 @@ export default {
             authorized: false,
             sendData: {
                 name: '',
-                email: ''
+                anonym: false,
+                gender: 'male',
+                email: '',
+                phone: ''
             }
         }
     },
 
     methods: {
         sendForm() {
-
+            let check = sendFormValidation(this.sendData);
+            if(check.status) {
+                console.log('send data');
+            }
+            else {
+                this.$store.commit('showFlashMessage', {status: 'error', message: check.message});
+            }
         }
     },
 
