@@ -3,20 +3,20 @@
         <transition name="fade" mode="out-in">
             <img v-if="loading" :class="[loading ? 'loading-animated': '', 'loading']" src="./../assets/img/nnz_letter_logo.svg" alt="">
             <form v-else-if="!loading && authorized" action="">
-                <input type="text" class="name" placeholder="ФИО получателя" v-model="sendData.name">
-                <div class="options">
+                <input type="text" class="name" placeholder="ФИО получателя" v-model="sendData.name" :disabled="sendData.anonym === 'true'">
+                <div :class="['options', sendData.anonym === 'true' ? 'disabled' : '']">
                     <p>Пол</p>
-                    <input type="radio" value="male" id="gender_male" v-model="sendData.gender">
+                    <input type="radio" value="male" id="gender_male" v-model="sendData.gender" :disabled="sendData.anonym === 'true'">
                     <label for="gender_male">Мужской</label>
-                    <input type="radio" value="female" id="gender_female" v-model="sendData.gender">
+                    <input type="radio" value="female" id="gender_female" v-model="sendData.gender" :disabled="sendData.anonym === 'true'">
                     <label for="gender_female">Женский</label>
                 </div>
                 <div class="options">
                     <p>Отправить без личного обращения</p>
                     <input type="radio" value="false" id="anonym_true" v-model="sendData.anonym">
-                    <label for="anonym_true">Да</label>
+                    <label for="anonym_true">Нет</label>
                     <input type="radio" value="true" id="anonym_false" v-model="sendData.anonym">
-                    <label for="anonym_false">Нет</label>
+                    <label for="anonym_false">Да</label>
                 </div>
                 <input type="text" name="phone" class="phone" placeholder="Телефон получателя" v-model="sendData.phone">
                 <input type="text" name="email" class="email" placeholder="Email получателя" v-model="sendData.email">
@@ -49,7 +49,8 @@ export default {
 
     methods: {
         sendForm() {
-            let check = sendFormValidation(this.sendData);
+            let sendData = this.sendData.anonym === 'false' ? {name: this.sendData.name, gender: this.sendData.gender, email: this.sendData.email, phone: this.sendData.phone, anonym: false} : {email: this.sendData.email, phone: this.sendData.phone, anonym: true};
+            let check = sendFormValidation(sendData);
             if(check.status) {
                 console.log('send data');
             }
@@ -113,6 +114,15 @@ form {
         display: flex;
         justify-content: center;
         flex-wrap: wrap;
+        transition: opacity .2s ease-in;
+
+        &.disabled {
+            opacity: .1;
+
+            & label {
+                cursor: auto;
+            }
+        }
 
         & p {
             width: 100%;
@@ -140,6 +150,13 @@ form {
         border: none;
         border-bottom: 2px solid var(--grey);
         font-size: 1rem;
+        transition: opacity .2s ease-in;
+        background-color: #fff;
+    }
+
+    & input:disabled {
+        opacity: .1;
+        background-color: #fff;
     }
 
     & button {
