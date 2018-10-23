@@ -2,9 +2,9 @@ const config = require('./../../config/nnz_form_config.js');
 
 module.exports = {
     sendLink(userObj) {
-        console.log(userObj);
-        let fullName = userObj.name.split(' ');
+        let fullName = userObj.anonym ? '' : userObj.name.split(' ');
         let name = fullName.length > 2 ? `${fullName[1]} ${fullName[2]}`: `${fullName[1]}`;
+        let gender = userObj.gender === 'male' ? 'Уважаемый' : 'Уважаемая';
         return {
             from: `"nnz-ipc.ru" <ipc@nnz.ru>`, // sender address
             to: `${userObj.email}`, // list of receivers
@@ -222,7 +222,7 @@ module.exports = {
                     <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="vertical-align:top;" width="100%">
                       <tr>
                         <td align="center" style="font-size:0px;padding:10px 25px;word-break:break-word;">
-                          <div style="font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:20px;font-style:bold;line-height:1;text-align:center;color:#231f20;"> Добрый день, ${name} </div>
+                          <div style="font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:20px;font-style:bold;line-height:1;text-align:center;color:#231f20;"> ${userObj.anonym ? 'Добрый день' : gender}, ${userObj.anonym ? 'коллеги' : name}</div>
                         </td>
                       </tr>
                       <tr>
@@ -391,4 +391,4 @@ module.exports = {
             `
         };
     }
-}
+};
