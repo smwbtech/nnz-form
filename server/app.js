@@ -2,11 +2,12 @@ const path = require('path');
 const express = require('express');
 const router = require('./router/router.js');
 const auth = require('./auth/index.js');
+const config = require('./config/config.js');
 const { logger } = require('./logger/index.js');
 
 const app = express();
 
-app.set('port', process.env.PORT || 3000);
+app.set('port', config.port);
 
  /*** Обработка маршрутов ***/
 
@@ -32,5 +33,5 @@ app.use( (err, req, res, next) => {
 });
 
 app.listen(3000, () => {
-    console.log('Server is running on port 3000');
+    console.log(`Server is running on port ${config.port}`);
 });
