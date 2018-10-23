@@ -3,7 +3,7 @@ class ApiError extends Error {
         super(errorObj.message)
         this.name = errorObj.name;
         this.code = errorObj.code;
-        this.text = errorObj.message;
+        this.message = errorObj.message;
     }
 }
 
