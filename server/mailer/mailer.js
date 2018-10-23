@@ -22,7 +22,7 @@ const mailer = {
 
     sendMail(data) {
        console.log('Sending mail');
-       const template = sendLink({email: data.email});
+       const template = sendLink(data);
        return new Promise( (res, rej) => {
            mailer.transporter().sendMail(template, (error, info) => {
                if (error) {
