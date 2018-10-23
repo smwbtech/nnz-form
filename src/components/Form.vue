@@ -119,12 +119,11 @@ export default {
         //Проверяем пользователя
         this.loading = true;
         let params = new URLSearchParams(window.location.search);
-        let email = params.get('em');
-        if(email) {
-            this.$http.get(`/api/user/check/${email}`)
+        let id = params.get('i');
+        if(id) {
+            this.$http.get(`/api/user/check/${id}`)
                 .then( res => {
                     this.loading = false;
-                    console.log(res);
                     let { data } = res;
                     if(data.status) {
                         this.status = data.status;

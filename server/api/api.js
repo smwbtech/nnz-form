@@ -10,18 +10,19 @@ const api = {
 
     //Проверяем, есть ли пользователь в БД, если да, то возвращаем его объект клиенту
     async checkUser(req, res) {
-        const email = req.params.email;
+        const id = req.params.id;
         try {
             const dbConnection = await db.connect();
-            let user = await dbConnection.db.collection('answers').find({email}).toArray();
+            let user = await dbConnection.db.collection('answers').findOne({_id: db.objectId(id)});
             await dbConnection.client.close();
-            if(user.length > 0) {
-                res.json({status: true, user: user[0]});
+            console.log(user);
+            if(user) {
+                res.json({status: true, user: user});
             }
             else {
                 throw new ApiError({
                     name: 'Check User Fail',
-                    message: `Пользователь с email: ${email} не найдет в БД`,
+                    message: `Пользователь с id: ${id} не найдет в БД`,
                     code: 4000
                 });
             }
