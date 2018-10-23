@@ -2,7 +2,7 @@ const path = require('path');
 const express = require('express');
 const router = require('./router/router.js');
 const auth = require('./auth/index.js');
-const config = require('./config/config.js');
+const config = require('./config/nnz_form_config.js');
 const { logger } = require('./logger/index.js');
 
 const app = express();
@@ -32,6 +32,6 @@ app.use( (err, req, res, next) => {
     res.send('500 - server error');
 });
 
-app.listen(3000, () => {
+app.listen(config.port, () => {
     console.log(`Server is running on port ${config.port}`);
 });
