@@ -36,7 +36,19 @@
 
                 <form action="">
                     <label for="star-rating">Как вы оцениваете работу нашей компании по пятибальной шкале? </label>
-                    <star-rating class="star-rating" id="star-rating"
+                    <div class="variants">
+                        <input type="radio" id="chek_1" value="1" v-model="rating">
+                        <label for="chek_1">Вариант 1</label>
+                        <input type="radio" id="chek_2" value="2" v-model="rating">
+                        <label for="chek_2">Вариант 2</label>
+                        <input type="radio" id="chek_3" value="3" v-model="rating">
+                        <label for="chek_3">Вариант 3</label>
+                        <input type="radio" id="chek_4" value="4" v-model="rating">
+                        <label for="chek_4">Вариант 4</label>
+                        <input type="radio" id="chek_5" value="5" v-model="rating">
+                        <label for="chek_5">Вариант 5</label>
+                    </div>
+                    <!-- <star-rating class="star-rating" id="star-rating"
                     v-model="rating"
                     :increment="0.5"
                     :star-size="40"
@@ -44,11 +56,11 @@
                     :active-color="'#22b1fc'"
                     :padding="10"
                     :show-rating="false"
-                    @rating-selected="!isSelected ? isSelected = true : false"></star-rating>
+                    @rating-selected="!isSelected ? isSelected = true : false"></star-rating> -->
                     <label for="comment">Что именно вас устраивает или не устраивает в работе нашей компании? Напишите свой комментарий.</label>
                     <textarea name="comment" id="comment" v-model="comment"></textarea>
                     <button
-                    :class="[isSelected ? 'active' : 'inactive']"
+                    :class="[rating > 0 ? 'active' : 'inactive']"
                     @click.prevent="send">отправить отзыв</button>
                 </form>
 
@@ -88,7 +100,7 @@ export default {
     },
 
     methods: {
-
+        
         send() {
             if(this.status && this.user && !this.user.isAnswered) {
                 let dataObj = {
@@ -223,6 +235,34 @@ export default {
 
             & form {
                 align-self: end;
+            }
+
+            & .variants {
+                display: flex;
+                flex-wrap: wrap;
+                width: 100%;
+
+                & input {
+                    display: none;
+                }
+
+                & label {
+                    display: block;
+                    font-weight: 400;
+                    width: 60%;
+                    background-color: #fff;
+                    color: inherit;
+                    margin: 0;
+                    padding: 10px 0px;
+                    transition: all .2s ease-in-out;
+                    cursor: pointer;
+                }
+
+                & input:checked + label {
+                    background-color: #22b1fc;
+                    color: #fff;
+                    padding-left: 10px;
+                }
             }
 
             & .questions {
