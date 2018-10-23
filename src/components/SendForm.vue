@@ -52,7 +52,27 @@ export default {
             let sendData = this.sendData.anonym === 'false' ? {name: this.sendData.name, gender: this.sendData.gender, email: this.sendData.email, phone: this.sendData.phone, anonym: false} : {email: this.sendData.email, phone: this.sendData.phone, anonym: true};
             let check = sendFormValidation(sendData);
             if(check.status) {
-                console.log('send data');
+                this.$http.post('/api/recepient/add', sendData)
+                .then( res => {
+                    console.log(res);
+                    let {data, status, error} = res.data;
+                    if(status) {
+                        this.$store.commit('showFlashMessage', {status: 'success', message: 'Пользователь успешно добавлен в БД. Ссылка на опрос отправлена на указанный email'});
+                        this.sendData = {
+                            name: '',
+                            anonym: 'false',
+                            gender: 'male',
+                            email: '',
+                            phone: ''
+                        };
+                    }
+                    else {
+                        this.$store.commit('showFlashMessage', {status: 'error', message: error.text});
+                    }
+                })
+                .catch(e => {
+                    console.log(e);
+                });
             }
             else {
                 this.$store.commit('showFlashMessage', {status: 'error', message: check.message});

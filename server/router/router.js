@@ -17,6 +17,8 @@ router.use(bodyParser.urlencoded({ extended: false }));
 
 //Проверка пользователя
 router.get('/api/user/check/:email', api.checkUser);
+//Добавление нового рецепиента
+router.post('/api/recepient/add', api.addRecepient);
 //Сохранение ответа пользователя
 router.post('/api/user/save_answer', api.saveAnswer);
 

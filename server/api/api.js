@@ -1,4 +1,6 @@
 const db = require('./../db/index.js');
+const mailer = require('./../mailer/index.js');
+const { logger } = require('./../logger/index.js');
 
 //Классы
 const Response = require('./../models/Response.js');
@@ -21,6 +23,37 @@ const api = {
                     name: 'Check User Fail',
                     message: `Пользователь с email: ${email} не найдет в БД`,
                     code: 4000
+                });
+            }
+        }
+        catch(e) {
+            logger.error(`${e.name} - ${e.message} - ${e.stack || e} - ${req.originalUrl} - ${req.method} - ${req.ip}`);
+            res.json(new Response({
+               status: false,
+               error: e
+           }));
+        }
+    },
+
+    async addRecepient(req, res) {
+        let user = req.body;
+        user.isAnswered = false;
+        try {
+            let dbConnection = await db.connect();
+            let userCheck = await dbConnection.db.collection('answers').find({email: user.email}).toArray();
+            if(userCheck.length === 0) {
+                let insertion = await dbConnection.db.collection('answers').insert(user);
+                await dbConnection.client.close();
+                await mailer.sendMail(insertion.ops[0]);
+                res.json(new Response({
+                    status: true
+                }));
+            }
+            else {
+                throw new ApiError({
+                    name: 'Check User Fail',
+                    message: `Пользователь с email: ${user.email} уже есть в БД. Вы не можете повторно добавить пользователя с одним и темже email!`,
+                    code: 4001
                 });
             }
         }
