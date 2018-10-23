@@ -3,7 +3,7 @@
     <form action="">
         <input type="text" class="login" placeholder="Email" v-model="email">
         <input type="password" name="" id="" class="password" placeholder="Password" v-model="password">
-        <button type="submit" @click.prevent="login">Отправить</button>
+        <button type="submit" @click.prevent="login">Войти</button>
     </form>
 
 </template>
