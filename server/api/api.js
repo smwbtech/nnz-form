@@ -15,9 +15,11 @@ const api = {
             const dbConnection = await db.connect();
             let user = await dbConnection.db.collection('answers').findOne({_id: db.objectId(id)});
             await dbConnection.client.close();
-            console.log(user);
             if(user) {
-                res.json({status: true, user: user});
+                res.json(new Response({
+                    status: true,
+                    data: user
+                }));
             }
             else {
                 throw new ApiError({
@@ -79,7 +81,9 @@ const api = {
                 }
             });
             if(update.lastErrorObject.updatedExisting) {
-                res.json({status: true});
+                res.json(new Response({
+                    status: true
+                }));
             }
             else {
                 throw new Error('Ошибка обновления. Попробуйте позже');
@@ -87,7 +91,10 @@ const api = {
         }
         catch(e) {
             logger.error(`${e.name} - ${e.message} - ${req.originalUrl} - ${req.method} - ${req.ip}`);
-            res.json({status: false});
+            res.json(new Response({
+               status: false,
+               error: e
+           }));
         }
     }
 }

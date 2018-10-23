@@ -100,7 +100,7 @@ export default {
     },
 
     methods: {
-        
+
         send() {
             if(this.status && this.user && !this.user.isAnswered) {
                 let dataObj = {
@@ -112,9 +112,12 @@ export default {
                 };
                 this.$http.post('/api/user/save_answer', dataObj)
                     .then( res => {
-                        let { data } = res;
-                        if(data.status) {
+                        let { status, data, error } = res.data;
+                        if(status) {
                             this.user ? this.user.isAnswered = true : this.user = {isAnswered: true}
+                        }
+                        else {
+                            this.commit('showFlashMessage', {status: 'error', message: error.message});
                         }
                     })
                     .catch(err => {
@@ -136,10 +139,13 @@ export default {
             this.$http.get(`/api/user/check/${id}`)
                 .then( res => {
                     this.loading = false;
-                    let { data } = res;
-                    if(data.status) {
-                        this.status = data.status;
-                        this.user = data.user;
+                    let { status, data, error } = res.data;
+                    if(status) {
+                        this.status = status;
+                        this.user = data;
+                    }
+                    else {
+                        this.commit('showFlashMessage', {status: 'error', message: error.message});
                     }
                 })
                 .catch( err => {
