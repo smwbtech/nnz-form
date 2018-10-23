@@ -88,7 +88,7 @@ const auth = {
                 else {
                     throw new ApiError({
                         name: 'User Unauthorized',
-                        message: `Пользователь с email: ${email} не прошел проверку пароля`,
+                        message: `Неверное сочетание логина / пароля. Попробуйте еще раз`,
                         code: 401
                     });
                 }
@@ -96,7 +96,7 @@ const auth = {
             else {
                 throw new ApiError({
                     name: 'User Unauthorized',
-                    message: `Пользователь с email: ${email} не найдет в БД`,
+                    message: `Неверное сочетание логина / пароля. Попробуйте еще раз`,
                     code: 401
                 });
             }
