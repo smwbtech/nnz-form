@@ -27,7 +27,7 @@ export const flashMessage = {
                         state.message = '';
                         state.status = '';
                     }, 8000);
-                    state.timeoutId = tiemouteId;
+                    state.timeoutId = timeoutId;
                 }, 1000);
             }
         }
