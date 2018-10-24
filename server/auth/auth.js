@@ -135,7 +135,7 @@ const auth = {
             logger.error(`${e.name} - ${e.message} - ${e.stack || e} - ${req.originalUrl} - ${req.method} - ${req.ip}`);
             res.json(new Response({
                status: false,
-               error: e
+               error: {name: e.name, message: e.message, code: e.code}
            }));
         }
     }

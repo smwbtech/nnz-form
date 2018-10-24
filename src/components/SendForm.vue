@@ -67,7 +67,7 @@ export default {
                         };
                     }
                     else {
-                        this.$store.commit('showFlashMessage', {status: 'error', message: error.text});
+                        this.$store.commit('showFlashMessage', {status: 'error', message: error.message});
                     }
                 })
                 .catch(e => {
