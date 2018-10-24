@@ -271,6 +271,11 @@ export default {
                     cursor: pointer;
                 }
 
+                & label:hover {
+                    background-color: #22b1fc77;
+                    padding-left: 10px;
+                }
+
                 & input:checked + label {
                     background-color: #22b1fc;
                     color: #fff;
