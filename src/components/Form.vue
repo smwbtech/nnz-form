@@ -19,7 +19,7 @@
             <section class="form-block-left">
                 <img src="./../assets/img/nnz_logo.svg" alt="Логотип Ниеншанц-Автоматики" class="logo">
                 <p class="text">
-                    <span>Добрый день, {{ user && user.name ? user.name : '' }}</span><br>
+                    <span>Добрый день, {{ name }}</span><br>
                     Мы проводим опрос среди наших постоянных клиентов с целью улучшить наше взаимодействие и коммуникацию. Просим Вас ответить на два вопроса, которые дадут нам более полное представление о том, как наша компания воспринимается со стороны. Заранее благодарим за ответы, вы помогаете нам становиться лучше.
                 </p>
                 <p class="link">
@@ -94,6 +94,13 @@ export default {
     },
 
     computed: {
+        name() {
+            if(this.user && !this.user.anonym) {
+                let fullName = this.user.name.split(' ');
+                return fullName.length > 2 ? `${fullName[1]} ${fullName[2]}` : `${fullName[1]}`;
+            }
+            return '';
+        },
         isAnswered() {
             return this.user ? this.user.isAnswered : false;
         }
