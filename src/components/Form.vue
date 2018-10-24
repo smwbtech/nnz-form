@@ -37,15 +37,15 @@
                 <form action="">
                     <label for="star-rating">Как вы оцениваете работу нашей компании по пятибальной шкале? </label>
                     <div class="variants">
-                        <input type="radio" id="chek_1" value="1" v-model="rating">
+                        <input type="radio" id="chek_1" value="1" v-model.number="rating">
                         <label for="chek_1">Вариант 1</label>
-                        <input type="radio" id="chek_2" value="2" v-model="rating">
+                        <input type="radio" id="chek_2" value="2" v-model.number="rating">
                         <label for="chek_2">Вариант 2</label>
-                        <input type="radio" id="chek_3" value="3" v-model="rating">
+                        <input type="radio" id="chek_3" value="3" v-model.number="rating">
                         <label for="chek_3">Вариант 3</label>
-                        <input type="radio" id="chek_4" value="4" v-model="rating">
+                        <input type="radio" id="chek_4" value="4" v-model.number="rating">
                         <label for="chek_4">Вариант 4</label>
-                        <input type="radio" id="chek_5" value="5" v-model="rating">
+                        <input type="radio" id="chek_5" value="5" v-model.number="rating">
                         <label for="chek_5">Вариант 5</label>
                     </div>
                     <!-- <star-rating class="star-rating" id="star-rating"
