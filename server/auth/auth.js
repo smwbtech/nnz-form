@@ -88,7 +88,7 @@ const auth = {
                 else {
                     throw new ApiError({
                         name: 'User Unauthorized',
-                        message: `Неверное сочетание логина / пароля. Попробуйте еще раз`,
+                        message: 'Неверное сочетание логина / пароля. Попробуйте еще раз',
                         code: 401
                     });
                 }
@@ -96,17 +96,17 @@ const auth = {
             else {
                 throw new ApiError({
                     name: 'User Unauthorized',
-                    message: `Неверное сочетание логина / пароля. Попробуйте еще раз`,
+                    message: 'Неверное сочетание логина / пароля. Попробуйте еще раз',
                     code: 401
                 });
             }
         }
         catch(e) {
-            console.log(e);
+            console.log(e.message);
             logger.error(`${e.name} - ${e.message} - ${e.stack || e} - ${req.originalUrl} - ${req.method} - ${req.ip}`);
             res.json(new Response({
                status: false,
-               error: e
+               error: {name: e.name, message: e.message, code: e.code}
            }));
         }
     },

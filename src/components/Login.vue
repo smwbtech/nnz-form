@@ -32,7 +32,8 @@ export default {
                         this.$router.push('/send_form');
                     }
                     else {
-                        let message = error.text;
+                        let message = error.message;
+                        console.log(error);
                         this.$store.commit('showFlashMessage', {message, status: 'error'});
                     }
                 })
