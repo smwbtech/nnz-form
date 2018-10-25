@@ -227,7 +227,7 @@ module.exports = {
                       </tr>
                       <tr>
                         <td align="center" style="font-size:0px;padding:10px 25px;word-break:break-word;">
-                          <div style="font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:14px;line-height:1;text-align:center;color:#231f20;"> Компания "Ниеншанц-Автоматика" проводит опрос среди постоянных клиентов. Уделите нам, пожалуйста, 20 секунд вашего времени и ответьте пожалуйста на ОДИН вопрос. </div>
+                          <div style="font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:14px;line-height:1;text-align:center;color:#231f20;"> Компания "Ниеншанц-Автоматика" проводит опрос среди постоянных клиентов. Уделите нам, пожалуйста, 20 секунд вашего времени и ответьте на ОДИН вопрос.</div>
                         </td>
                       </tr>
                       <tr>
