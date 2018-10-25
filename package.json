@@ -27,6 +27,7 @@
     "@vue/cli-plugin-babel": "^3.0.4",
     "@vue/cli-plugin-eslint": "^3.0.4",
     "@vue/cli-service": "^3.0.4",
+    "postcss-custom-properties": "^8.0.8",
     "postcss-preset-env": "^6.0.10",
     "vue-template-compiler": "^2.5.17"
   },
@@ -50,7 +51,11 @@
       "postcss-preset-env": {
         "stage": 2,
         "features": {
-          "nesting-rules": true
+          "nesting-rules": true,
+          "custom-properties": {
+              "preserve": false,
+              "importFrom": "./src/assets/css/variables.css"
+          }
         }
       }
     }

@@ -20,7 +20,7 @@
                 <img src="./../assets/img/nnz_logo.svg" alt="Логотип Ниеншанц-Автоматики" class="logo">
                 <p class="text">
                     <span>Добрый день, {{ name }}</span><br>
-                    Мы проводим опрос среди наших постоянных клиентов с целью улучшить наше взаимодействие и коммуникацию. Просим Вас ответить на два вопроса, которые дадут нам более полное представление о том, как наша компания воспринимается со стороны. Заранее благодарим за ответы, вы помогаете нам становиться лучше.
+                    Мы проводим опрос среди наших постоянных клиентов с целью улучшить наше взаимодействие и коммуникацию. Просим Вас ответить на один вопрос, чтобы дать нам более полное представление о том, как наша компания воспринимается со стороны. Заранее благодарим за ответы, вы помогаете нам становиться лучше.
                 </p>
                 <p class="link">
                     <a href="https://www.nnz-ipc.ru/">www.nnz-ipc.ru</a>
@@ -96,8 +96,9 @@ export default {
     computed: {
         name() {
             if(this.user && !this.user.anonym) {
-                let fullName = this.user.name.split(' ');
-                return fullName.length > 2 ? `${fullName[1]} ${fullName[2]}` : `${fullName[1]}`;
+                let fullName = this.user.name ? this.user.name.split(' ') : '';
+                if(fullName) return fullName.length > 2 ? `${fullName[1]} ${fullName[2]}` : `${fullName[1]}`;
+                else return '';
             }
             return '';
         },
@@ -248,6 +249,7 @@ export default {
 
             & form {
                 align-self: end;
+                width: 100%;
             }
 
             & .variants {
@@ -261,25 +263,44 @@ export default {
 
                 & label {
                     display: block;
+                    position: relative;
                     font-weight: 400;
-                    width: 60%;
+                    width: 80%;
                     background-color: #fff;
                     color: inherit;
                     margin: 0;
                     padding: 10px 0px;
+                    padding-left: 40px;
                     transition: all .2s ease-in-out;
                     cursor: pointer;
+
+                    &:before {
+                        display: block;
+                        content: '';
+                        position: absolute;
+                        left: 10px;
+                        top: 10px;
+                        width: 20px;
+                        height: 20px;
+                        border: 2px solid #7b7b7b;
+                        border-radius: 20px;
+                        background-color: rgba(123, 123, 123, 0);
+                        transition: all .2s ease-in;
+                    }
                 }
 
                 & label:hover {
                     background-color: #22b1fc77;
-                    padding-left: 10px;
                 }
 
                 & input:checked + label {
                     background-color: #22b1fc;
                     color: #fff;
-                    padding-left: 10px;
+                }
+
+                & input:checked + label:before {
+                    background-color: var(--dark-green);
+                    border-color: var(--dark-green);
                 }
             }
 

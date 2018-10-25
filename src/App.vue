@@ -51,6 +51,7 @@ export default {
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
         min-height: 100vh;
+        height: 100vh;
         min-width: 100vw;
         display: flex;
         justify-content: center;
