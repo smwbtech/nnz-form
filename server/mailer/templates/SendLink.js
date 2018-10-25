@@ -227,12 +227,12 @@ module.exports = {
                       </tr>
                       <tr>
                         <td align="center" style="font-size:0px;padding:10px 25px;word-break:break-word;">
-                          <div style="font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:14px;line-height:1;text-align:center;color:#231f20;"> Компания "Ниеншанц-Автоматика" проводит опрос среди постоянных клиентов с целью улучшить наши взаимодействие и коммуникацию. </div>
+                          <div style="font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:14px;line-height:1;text-align:center;color:#231f20;"> Компания "Ниеншанц-Автоматика" проводит опрос среди постоянных клиентов. Уделите нам, пожалуйста, 20 секунд вашего времени и ответьте пожалуйста на ОДИН вопрос. </div>
                         </td>
                       </tr>
                       <tr>
                         <td align="center" style="font-size:0px;padding:10px 25px;word-break:break-word;">
-                          <div style="font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:14px;line-height:1;text-align:center;color:#231f20;"> Для того, чтобы ответить на вопросы, пройдите по ссылке. </div>
+                          <div style="font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:14px;line-height:1;text-align:center;color:#231f20;"> Для того, чтобы ответить на вопрос, пройдите по ссылке. </div>
                         </td>
                       </tr>
                       <tr>
@@ -240,7 +240,7 @@ module.exports = {
                           <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="border-collapse:separate;line-height:100%;">
                             <tr>
                               <td align="center" bgcolor="#0072b4" role="presentation" style="border:none;border-radius:3px;cursor:auto;padding:10px 25px;background:#0072b4;" valign="middle">
-                                <a href="${config.hostname}?i=${userObj._id}" style="background:#0072b4;color:#ffffff;font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:13px;font-weight:normal;line-height:120%;Margin:0;text-decoration:none;text-transform:none;" target="_blank"> Заполнить анкету </a>
+                                <a href="${config.hostname}?i=${userObj._id}" style="background:#0072b4;color:#ffffff;font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:13px;font-weight:normal;line-height:120%;Margin:0;text-decoration:none;text-transform:none;" target="_blank"> Ответ на вопрос </a>
                               </td>
                             </tr>
                           </table>
