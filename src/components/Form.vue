@@ -35,18 +35,18 @@
                 </div>
 
                 <form action="">
-                    <label for="star-rating">Как вы оцениваете работу нашей компании по пятибальной шкале? </label>
+                    <label for="star-rating">Порекомендовали ли бы вы компанию Ниеншанц-Автоматика своим коллегам в качестве поставщика оборудования?</label>
                     <div class="variants">
                         <input type="radio" id="chek_1" value="1" v-model.number="rating">
-                        <label for="chek_1">Вариант 1</label>
+                        <label for="chek_1">1. Ни в коем случае</label>
                         <input type="radio" id="chek_2" value="2" v-model.number="rating">
-                        <label for="chek_2">Вариант 2</label>
+                        <label for="chek_2">2. Скорее "нет", чем "да"</label>
                         <input type="radio" id="chek_3" value="3" v-model.number="rating">
-                        <label for="chek_3">Вариант 3</label>
+                        <label for="chek_3">3. Не уверен</label>
                         <input type="radio" id="chek_4" value="4" v-model.number="rating">
-                        <label for="chek_4">Вариант 4</label>
+                        <label for="chek_4">4. Скорее "да", чем "нет"</label>
                         <input type="radio" id="chek_5" value="5" v-model.number="rating">
-                        <label for="chek_5">Вариант 5</label>
+                        <label for="chek_5">5. С удовольствием рекомендую</label>
                     </div>
                     <!-- <star-rating class="star-rating" id="star-rating"
                     v-model="rating"
@@ -57,8 +57,8 @@
                     :padding="10"
                     :show-rating="false"
                     @rating-selected="!isSelected ? isSelected = true : false"></star-rating> -->
-                    <label for="comment">Что именно вас устраивает или не устраивает в работе нашей компании? Напишите свой комментарий.</label>
-                    <textarea name="comment" id="comment" v-model="comment"></textarea>
+                    <label for="comment">Если хотите, прокомментируйте свой ответ <i>(необязательно)</i></label>
+                    <textarea name="comment" id="comment" v-model="comment" placeholder="Напишите свой комментарий"></textarea>
                     <button
                     :class="[rating > 0 ? 'active' : 'inactive']"
                     @click.prevent="send">отправить отзыв</button>
@@ -86,7 +86,7 @@ export default {
         return {
             isSelected: false,
             rating: 0,
-            comment: 'Напишите свой комментарий',
+            comment: '',
             loading: false,
             status: false,
             user: null
