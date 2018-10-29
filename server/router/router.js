@@ -22,6 +22,8 @@ router.post('/api/recepient/add', api.addRecepient);
 //Сохранение ответа пользователя
 router.post('/api/user/save_answer', api.saveAnswer);
 
+router.get('/api/answers/get', auth.checkAuth, api.getXLSXAnswers);
+
 /* АВТОРИЗАЦИЯ / ИДЕНТИФИКАЦИЯ */
 
 // Авторизация пользователя

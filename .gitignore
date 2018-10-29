@@ -25,3 +25,4 @@ yarn-error.log*
 /server/users/
 /server/config/
 /server/logger/files/
+/server/answers.xlsx

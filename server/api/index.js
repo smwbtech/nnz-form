@@ -6,5 +6,7 @@ module.exports = {
     // Добавление нового рецепиента
     addRecepient: api.addRecepient,
     //Сохранение ответа пользователя в БД
-    saveAnswer: api.saveAnswer
+    saveAnswer: api.saveAnswer,
+
+    getXLSXAnswers: api.getXLSXAnswers
 }

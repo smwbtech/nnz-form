@@ -15,6 +15,7 @@
     "express": "^4.16.3",
     "jsonwebtoken": "^8.3.0",
     "mongodb": "^3.1.6",
+    "node-xlsx": "^0.12.1",
     "nodemailer": "^4.6.8",
     "url-search-params": "^1.1.0",
     "vue": "^2.5.17",
@@ -53,8 +54,8 @@
         "features": {
           "nesting-rules": true,
           "custom-properties": {
-              "preserve": false,
-              "importFrom": "./src/assets/css/variables.css"
+            "preserve": false,
+            "importFrom": "./src/assets/css/variables.css"
           }
         }
       }

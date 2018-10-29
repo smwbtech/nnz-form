@@ -1,5 +1,8 @@
+const fs = require('fs');
+const path = require('path');
 const db = require('./../db/index.js');
 const mailer = require('./../mailer/index.js');
+const xlsx = require('node-xlsx').default;
 const { logger } = require('./../logger/index.js');
 
 //Классы
@@ -96,7 +99,51 @@ const api = {
                error: {name: e.name, message: e.message, code: e.code}
            }));
         }
+    },
+
+    async getXLSXAnswers(req, res) {
+        try {
+            const dbConnection = await db.connect();
+            let answers = await dbConnection.db.collection('answers').find({}).toArray();
+            await dbConnection.client.close();
+            answers = answers.map( v => {
+                return [
+                    v.anonym ? '' : v.name,
+                    v.phone,
+                    v.email,
+                    v.isAnswered ? v.answer.rating : '',
+                    v.isAnswered ? v.answer.comment : ''
+                ];
+            });
+            let buffer = xlsx.build([{name: "mySheetName", data: answers}]);
+            console.log(buffer);
+            let file = await createFile(buffer);
+            // res.json(new Response({
+            //     status: true,
+            //     data: answers
+            // }));
+            res.sendFile(path.resolve('./answers.xlsx'));
+        }
+        catch(e) {
+            logger.error(`${e.name} - ${e.message} - ${req.originalUrl} - ${req.method} - ${req.ip}`);
+            res.json(new Response({
+               status: false,
+               error: {name: e.name, message: e.message, code: e.code}
+           }));
+        }
     }
 }
 
 module.exports = api;
+
+//HELPERS
+
+function createFile(data) {
+    return new Promise( (res, rej) => {
+        fs.writeFile('answers.xlsx', data, (err) => {
+            if (err) rej(err);
+            res('answers.xlsx');
+            console.log('The file has been saved!');
+        });
+    });
+}
