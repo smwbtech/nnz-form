@@ -3,7 +3,8 @@
         <transition name="fade" mode="out-in">
             <img v-if="loading" :class="[loading ? 'loading-animated': '', 'loading']" src="./../assets/img/nnz_letter_logo.svg" alt="">
             <form v-else-if="!loading && authorized" action="">
-                <input type="text" class="name" placeholder="ФИО получателя" v-model="sendData.name" :disabled="sendData.anonym === 'true'">
+                <p class="warning">Внимание! Для правильного обращения в письме к клиенту соблюдайте строгий порядок заполнения данного поля:<br>Фамилия Имя или Фамилия Имя Отчество</p>
+                <input type="text" class="name" placeholder="ФИО / ФИ получателя" v-model="sendData.name" :disabled="sendData.anonym === 'true'">
                 <div :class="['options', sendData.anonym === 'true' ? 'disabled' : '']">
                     <p>Пол</p>
                     <input type="radio" value="male" id="gender_male" v-model="sendData.gender" :disabled="sendData.anonym === 'true'">
@@ -122,6 +123,11 @@ form {
     background-color: #fff;
     border-radius: 5px;
     box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.2);
+
+    & .warning {
+        font-weight: bold;
+        color: red;
+    }
 
     & > * {
         display: block;
