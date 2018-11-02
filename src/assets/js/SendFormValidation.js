@@ -34,7 +34,7 @@ export function sendFormValidation(dataObj) {
  */
 function nameValidation(name) {
     const pattern = /^([а-я]+\s[а-я]+|(([а-я]+\s){2}[а-я]+))$/ig;
-    return pattern.test(name);
+    return pattern.test(name.trim());
 }
 
 /**
